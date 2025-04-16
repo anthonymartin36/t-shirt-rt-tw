@@ -7,8 +7,9 @@ import Logo from '../../assets/T-Shirt_shop.jpg'
 import { XMarkIcon } from "@heroicons/react/16/solid"
 import { navigation } from './helper'
 import { NavigationType } from './types'
+import Toggle from '../Toggle'
 
-const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMenuOpen,}) => {
+const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMenuOpen, darkMode, setDarkMode}) => {
     //console.log("mobileMenuOpen : ", mobileMenuOpen)
 	return (
 		<Dialog 
@@ -33,7 +34,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMen
                 </button>
                 </div>
                 <div className="mt-6 flow-root">
-                {/* <Toggle darkMode={darkMode} setDarkMode={setDarkMode} /> */}
+                <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
                 <div className="-my-6 divide-y divide-gray-500/10">
                     <div className="space-y-2 py-6">
                         {navigation.map((item: NavigationType) => (

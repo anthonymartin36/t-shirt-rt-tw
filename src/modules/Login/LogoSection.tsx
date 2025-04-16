@@ -1,7 +1,7 @@
 import React from 'react'
 import { RoutesEnum } from '../../routes'
 import { Link } from 'react-router-dom'
-import LogingBG from '../../assets/T-Shirt_shop.jpg'
+import LogingBG from '../../assets/T-Shirt_shop2.png'
 
 type LogoSectionProps = { 
     isRegisterPage?: boolean;
