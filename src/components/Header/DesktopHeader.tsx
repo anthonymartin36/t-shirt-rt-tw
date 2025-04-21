@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../assets/T-Shirt_shop2.png'
-import { RoutesEnum } from '../../routes'
 import { DesktopHeaderProps } from './types'
 import MenuIcon from './MenuIcon'
 import { navigation } from './helper'
@@ -14,7 +13,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
         aria-label="Global">
             {/* Logo Section */}
             <div className="flex lg:flex-1">
-                <Link to={RoutesEnum.Home} >
+                <Link to="/" >
                 <img src={Logo} alt="T-Shirt Store" className="h-45 w-auto"  />
                 </Link>
             </div>
@@ -35,7 +34,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
             {/* Login */}
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
                 <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
-                <Link to={RoutesEnum.Login} className="text-sm font-semibold leading-6">
+                <Link to="/login" className="text-sm font-semibold leading-6">
                     Log in <span aria-hidden="true">&rarr;</span>
                 </Link>
 

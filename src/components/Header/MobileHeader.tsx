@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Dialog } from '@headlessui/react'
 import { MobileHeaderProps } from './types'
-import { RoutesEnum } from '../../routes' 
 import Logo from '../../assets/T-Shirt_shop.jpg'
 import { XMarkIcon } from "@heroicons/react/16/solid"
 import { navigation } from './helper'
@@ -21,7 +20,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMen
             <Dialog.Panel 
             className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                 <div  className="flex items-center justify-between">
-                <Link to={RoutesEnum.Home} >
+                <Link to="/" >
                 <img src={Logo} alt="T-Shirt Store" className="h-10 w-auto"  />
                 </Link>
                 <button
