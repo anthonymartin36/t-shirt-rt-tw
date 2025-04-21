@@ -4,7 +4,6 @@ import Modal from "../../components/Modal"
 
 const TextContainer: React.FC = () => {
     const [open, setOpen] = React.useState(false)
-    console.log("TextContainer Open : ", open)
 	return (
 		<div className="relative w-full max-w-xl lg:shrink-0 lg:max-w-2xl ">
         <h1 className="text-4xl text-red-500 font-bold tracking-tight sm:text-6xl">
