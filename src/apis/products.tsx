@@ -1,11 +1,12 @@
 import request from 'superagent'
 //import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
 
-const rootUrl = import.meta.env.VITE_NODE_ENV + 'products' 
+const rootUrl = import.meta.env.VITE_NODE_API_URL + '/api/v1' 
 
 // ----- MISSING CATS ----- //
 
 // GET all products (/api/v1/products)
+console.log('rootUrl: ', rootUrl)
 export async function getAllProductsApi(): Promise<[]> {
   try {
     const response = await request.get(`${rootUrl}/products`)
