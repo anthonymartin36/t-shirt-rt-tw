@@ -5,13 +5,18 @@ const ContinueWithGoogle: React.FC = () => {
         <>
 		<div className="mt-10">
             <div className="relative ">
-                <div className="absolute inset-0 flex items-center" aria-hidden='true'>
+                <div 
+                  className="absolute inset-0 flex items-center" 
+                  aria-hidden='true'
+                >
                     <div className="w-full border-t border-gray-200" >  </div>
                 </div>
             
-            <div className="relative flex justify-center text-sm font-medium leading-6">
-                <span className="px-2 bg-whitetext-sm text-gray-500">or continue with</span>
-            </div>
+              <div className="relative flex justify-center text-sm font-medium leading-6">
+                  <span className="px-2 bg-white text-gray-900">
+                    Or continue with
+                  </span>
+              </div>
             </div>
 		</div>
         {/* Button */}

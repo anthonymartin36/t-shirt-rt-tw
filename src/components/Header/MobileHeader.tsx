@@ -21,7 +21,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMen
             className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                 <div  className="flex items-center justify-between">
                 <Link to="/" >
-                <img src={Logo} alt="T-Shirt Store" className="h-10 w-auto"  />
+                <img src={Logo} alt="T-Shirt Store" className="h-10 w-auto rounded-2xl"  />
                 </Link>
                 <button
                 type="button"

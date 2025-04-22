@@ -14,7 +14,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
             {/* Logo Section */}
             <div className="flex lg:flex-1">
                 <Link to="/" >
-                <img src={Logo} alt="T-Shirt Store" className="h-45 w-auto"  />
+                <img src={Logo} alt="T-Shirt Store" className="h-45 w-aut rounded-2xl"  />
                 </Link>
             </div>
             <MenuIcon setMobileMenuOpen={setMobileMenuOpen} />
@@ -34,9 +34,13 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
             {/* Login */}
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
                 <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                
+                <div>
                 <Link to="/login" className="text-sm font-semibold leading-6">
                     Log in <span aria-hidden="true">&rarr;</span>
                 </Link>
+                </div>
+                
 
             </div>
         </nav>

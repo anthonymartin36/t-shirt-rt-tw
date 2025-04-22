@@ -6,9 +6,8 @@ import Home from './src/pages/Home'
 import Login from './src/pages/Login'
 import Register from './src/pages/Register'
 import App from './src/components/App'
-
 import React from 'react'
-  
+
 const router = createBrowserRouter(
       createRoutesFromElements(
         <> 
