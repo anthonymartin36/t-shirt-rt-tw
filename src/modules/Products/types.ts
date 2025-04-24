@@ -16,17 +16,14 @@ export type IndividualProductType = {
     created_at: string;
     updated_at: string; 
     category_id: number;
+    category: {
+      id: number;
+      name: string;
+    };
+    image: {
+      id: number;
+      image_name: string;
+      image_alt: string;
+      image_url: string;
+    }
   }
-
-  // "id": 1,
-  // "SKU": "TS-BLK-S",
-  // "description": "Classic Black T-Shirt, 100% Cotton",
-  // "material": "Premium Cotton",
-  // "price": "19.99",
-  // "stock": 100,
-  // "image_id": 1,
-  // "size": "S",
-  // "colour": "Black",
-  // "created_at": "2025-04-20T03:02:53.382Z",
-  // "updated_at": "2025-04-20T03:02:53.382Z",
-  // "category_id": 12

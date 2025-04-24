@@ -52,6 +52,7 @@ function IndividualProduct({ product }: { product: ProductType }) {
 			<div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-3 xl:aspect-w-7">
 				
 			</div>
+			<img src={product.image.image_url} alt={product.image.image_alt}/>
 			<h3 className="mt-4 text-sm">{product.description}</h3>
 			<p className="mt-1 text-lg font-medium">{product.price}</p>
 		</div>

@@ -1,9 +1,7 @@
 import request from 'superagent'
-//import { MissingCat, NewSightedCat, SightedCat } from '../../models/cats'
 
 const rootUrl = import.meta.env.VITE_NODE_API_URL + '/api/v1' 
 
-// ----- MISSING CATS ----- //
 
 // GET all products (/api/v1/products)
 console.log('rootUrl: ', rootUrl)
