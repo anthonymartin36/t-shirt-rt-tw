@@ -9,9 +9,11 @@ import Toggle from '../Toggle'
 
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMode, setDarkMode}) => {
 	return (
-        <nav className="flex items-center justify-between p-6 lg:p-8" 
-        aria-label="Global">
+        <nav 
+            className="flex items-center justify-between py-12 px-4 lg:px-8" 
+            aria-label="Global">
             {/* Logo Section */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="flex lg:flex-1">
                 <Link to="/" >
                 <img src={Logo} alt="T-Shirt Store" className="h-45 w-aut rounded-2xl"  />
@@ -21,7 +23,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
             {/* Pages */}
             <div className="hidden lg:flex lg:gap-x-12">
                 {navigation.map((item: NavigationType) => (
-                   
+                <div key={item.id}> 
                 <a
                     key={item.name}
                     href={item.href}
@@ -29,7 +31,10 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
                     >
                     {item.name}
                     </a>
+                </div>
                 ))}
+            </div>
+            <div className="hidden lg:flex lg:gap-x-12">
             </div>
             {/* Login */}
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
@@ -40,9 +45,8 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
                     Log in <span aria-hidden="true">&rarr;</span>
                 </Link>
                 </div>
-                
-
             </div>
+        </div>
         </nav>
 	);
 };

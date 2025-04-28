@@ -2,6 +2,7 @@ import React from 'react'
 import { ProductType } from './types'
 import { useQuery } from '@tanstack/react-query'
 import { getAllProductsApi } from '../../apis/products'
+import { Link } from 'react-router-dom'
 //import { products } from './data'
 
 const Products: React.FC = () => {
@@ -38,7 +39,8 @@ const Products: React.FC = () => {
 			<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-6">
 			{products.map((product: ProductType) => ( 
 				<div key={product.id}>
-					<IndividualProduct product={product} /></div>
+					<IndividualProduct product={product} />
+				</div>
 			))}
 			</div>
 		</div>
@@ -51,10 +53,10 @@ function IndividualProduct({ product }: { product: ProductType }) {
 		<div className="group relative">
 			<div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-3 xl:aspect-w-7">
 				
-			</div>
-			<img src={product.image.image_url} alt={product.image.image_alt}/>
+			</div>					<Link to={`/products/${product.id}`} >					
+			<img src={product.image.image_url} alt={product.image.image_alt} className="h-45 w-aut rounded-2xl"/>
 			<h3 className="mt-4 text-sm">{product.description}</h3>
-			<p className="mt-1 text-lg font-medium">{product.price}</p>
+			<p className="mt-1 text-lg font-medium">{product.price}</p></Link> 
 		</div>
 	)	
 }

@@ -7,6 +7,7 @@ import Login from './src/pages/Login'
 import Register from './src/pages/Register'
 import App from './src/components/App'
 import React from 'react'
+import Product from './src/pages/Product'
 
 const router = createBrowserRouter(
       createRoutesFromElements(
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
             <Route index  element={<Home />} />
             <Route path="Register" element={<Register />} />
             <Route path="Login" element={<Login />} />
+            <Route path="Products/:id" element={<Product />} />
         </Route>
       </>,
       )
