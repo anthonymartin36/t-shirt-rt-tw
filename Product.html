@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Threads - Premium T-Shirts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a1a2e',
+                        secondary: '#16213e',
+                        accent: '#0f3460',
+                        highlight: '#e94560',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+        .product-image:hover {
+            transform: scale(1.03);
+        }
+        .color-option {
+            transition: all 0.2s ease;
+        }
+        .color-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px #e94560;
+        }
+        .color-option.selected {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px #e94560;
+        }
+        .size-option {
+            transition: all 0.2s ease;
+        }
+        .size-option:hover {
+            background-color: #e94560;
+            color: white;
+        }
+        .size-option.selected {
+            background-color: #e94560;
+            color: white;
+        }
+        .cart-notification {
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header/Navigation -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-tshirt text-2xl text-highlight"></i>
+                <h1 class="text-xl font-bold">URBAN THREADS</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-highlight transition">Home</a>
+                <a href="#" class="hover:text-highlight transition">Shop</a>
+                <a href="#" class="hover:text-highlight transition">Collections</a>
+                <a href="#" class="hover:text-highlight transition">About</a>
+                <a href="#" class="hover:text-highlight transition">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="wishlist-btn" class="relative">
+                    <i class="fas fa-heart text-xl hover:text-highlight transition"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-highlight text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+                <button id="cart-btn" class="relative">
+                    <i class="fas fa-shopping-cart text-xl hover:text-highlight transition"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-highlight text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div id="mobile-menu" class="hidden bg-primary text-white py-4 px-4 shadow-lg">
+        <div class="container mx-auto flex flex-col space-y-3">
+            <a href="#" class="hover:text-highlight transition">Home</a>
+            <a href="#" class="hover:text-highlight transition">Shop</a>
+            <a href="#" class="hover:text-highlight transition">Collections</a>
+            <a href="#" class="hover:text-highlight transition">About</a>
+            <a href="#" class="hover:text-highlight transition">Contact</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Product Images -->
+            <div class="lg:w-1/2">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img id="main-image" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" 
+                         alt="Premium Cotton T-Shirt" class="w-full h-auto product-image">
+                </div>
+                <div class="grid grid-cols-4 gap-2 mt-4">
+                    <div class="cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" 
+                             alt="T-Shirt Front" class="w-full h-24 object-cover rounded-lg product-image hover:border-2 hover:border-highlight">
+                    </div>
+                    <div class="cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="T-Shirt Back" class="w-full h-24 object-cover rounded-lg product-image hover:border-2 hover:border-highlight">
+                    </div>
+                    <div class="cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1527719327857-c38f12e7ba3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="T-Shirt Detail" class="w-full h-24 object-cover rounded-lg product-image hover:border-2 hover:border-highlight">
+                    </div>
+                    <div class="cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1529374257234-475e568d7d93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="T-Shirt Worn" class="w-full h-24 object-cover rounded-lg product-image hover:border-2 hover:border-highlight">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="lg:w-1/2">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="text-3xl font-bold text-primary">Premium Cotton T-Shirt</h2>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-600 ml-2">(48 reviews)</span>
+                            </div>
+                        </div>
+                        <button id="wishlist-toggle" class="text-gray-400 hover:text-highlight transition">
+                            <i class="far fa-heart text-2xl"></i>
+                        </button>
+                    </div>
+
+                    <div class="mt-6">
+                        <span class="text-2xl font-bold text-primary">$29.99</span>
+                        <span class="ml-2 text-gray-500 line-through">$39.99</span>
+                        <span class="ml-2 bg-highlight text-white text-sm px-2 py-1 rounded">25% OFF</span>
+                    </div>
+
+                    <p class="mt-4 text-gray-700">
+                        Our premium cotton t-shirt is crafted from 100% organic cotton for ultimate comfort. 
+                        The relaxed fit and breathable fabric make it perfect for everyday wear.
+                    </p>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-primary">Color</h3>
+                        <div class="flex space-x-3 mt-2">
+                            <div class="color-option selected w-8 h-8 rounded-full bg-black cursor-pointer border-2 border-white" 
+                                 data-color="Black" style="box-shadow: 0 0 0 2px white, 0 0 0 4px #e94560;"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-gray-400 cursor-pointer border-2 border-white" 
+                                 data-color="Gray"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-blue-800 cursor-pointer border-2 border-white" 
+                                 data-color="Navy"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-white cursor-pointer border-2 border-gray-300" 
+                                 data-color="White"></div>
+                            <div class="color-option w-8 h-8 rounded-full bg-red-600 cursor-pointer border-2 border-white" 
+                                 data-color="Red"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-primary">Size</h3>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <div class="size-option px-4 py-2 border rounded-lg cursor-pointer" data-size="XS">XS</div>
+                            <div class="size-option px-4 py-2 border rounded-lg cursor-pointer" data-size="S">S</div>
+                            <div class="size-option selected px-4 py-2 border rounded-lg cursor-pointer" data-size="M">M</div>
+                            <div class="size-option px-4 py-2 border rounded-lg cursor-pointer" data-size="L">L</div>
+                            <div class="size-option px-4 py-2 border rounded-lg cursor-pointer" data-size="XL">XL</div>
+                            <div class="size-option px-4 py-2 border rounded-lg cursor-pointer" data-size="XXL">XXL</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-primary">Quantity</h3>
+                        <div class="flex items-center mt-2">
+                            <button class="bg-gray-200 px-3 py-1 rounded-l-lg hover:bg-gray-300">-</button>
+                            <input type="number" value="1" min="1" class="w-16 text-center border-t border-b border-gray-300 py-1">
+                            <button class="bg-gray-200 px-3 py-1 rounded-r-lg hover:bg-gray-300">+</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                        <button id="add-to-cart" class="bg-highlight hover:bg-opacity-90 text-white py-3 px-6 rounded-lg font-medium flex-1 transition flex items-center justify-center">
+                            <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                        </button>
+                        <button class="bg-primary hover:bg-opacity-90 text-white py-3 px-6 rounded-lg font-medium flex-1 transition">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-truck mr-2"></i>
+                            <span>Free shipping on orders over $50</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mt-2">
+                            <i class="fas fa-exchange-alt mr-2"></i>
+                            <span>Easy returns within 30 days</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mt-2">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            <span>1-year quality guarantee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Description & Details -->
+        <div class="mt-12 bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-primary mb-6">Product Details</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-primary mb-3">Description</h3>
+                    <p class="text-gray-700">
+                        The Urban Threads Premium Cotton T-Shirt is designed for comfort and style. Made from 100% organic cotton, 
+                        this t-shirt features a relaxed fit that's perfect for everyday wear. The fabric is pre-shrunk and 
+                        garment-dyed for a soft, lived-in feel that gets better with each wash.
+                    </p>
+                    <p class="text-gray-700 mt-4">
+                        The ribbed crew neck provides a classic look, while the double-stitched seams ensure durability. 
+                        Available in a range of colors to suit every style.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-primary mb-3">Specifications</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex">
+                            <span class="font-medium w-32">Material:</span>
+                            <span>100% Organic Cotton</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium w-32">Fit:</span>
+                            <span>Relaxed</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium w-32">Weight:</span>
+                            <span>180 GSM</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium w-32">Neck:</span>
+                            <span>Crew Neck</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium w-32">Sleeve:</span>
+                            <span>Short Sleeve</span>
+                        </li>
+                        <li class="flex">
+                            <span class="font-medium w-32">Origin:</span>
+                            <span>Made in USA</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="mt-12 bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-primary mb-6">Customer Reviews</h2>
+            
+            <div class="flex items-center mb-6">
+                <div class="text-3xl font-bold mr-4">4.7</div>
+                <div>
+                    <div class="flex text-yellow-400 mb-1">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="text-gray-600">Based on 48 reviews</div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="border-b border-gray-200 pb-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-medium">Alex Johnson</h4>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <span class="text-gray-500 text-sm">2 weeks ago</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        This is the most comfortable t-shirt I've ever worn. The fabric is so soft and the fit is perfect. 
+                        I've already ordered two more in different colors!
+                    </p>
+                </div>
+                
+                <div class="border-b border-gray-200 pb-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-medium">Sarah Miller</h4>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <span class="text-gray-500 text-sm">1 month ago</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        Great quality shirt. The color is exactly as shown and it washes well without shrinking. 
+        The only reason I'm not giving 5 stars is that I wish it came in more color options.
+                    </p>
+                </div>
+            </div>
+            
+            <button class="mt-6 text-highlight font-medium hover:underline">View all reviews</button>
+        </div>
+
+        <!-- Related Products -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold text-primary mb-6">You May Also Like</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1527719327857-c38f12e7ba3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="Classic White Tee" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:bg-highlight hover:text-white transition">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <span class="absolute top-3 left-3 bg-highlight text-white text-xs px-2 py-1 rounded">NEW</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900">Classic White Tee</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(24)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="font-bold text-primary">$24.99</span>
+                            <button class="text-highlight hover:text-primary transition">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1578932750355-5eb30ece487a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="Graphic Print Tee" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:bg-highlight hover:text-white transition">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900">Graphic Print Tee</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(18)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="font-bold text-primary">$27.99</span>
+                            <button class="text-highlight hover:text-primary transition">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1529374257234-475e568d7d93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="Oversized Pocket Tee" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:bg-highlight hover:text-white transition">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <span class="absolute top-3 left-3 bg-highlight text-white text-xs px-2 py-1 rounded">SALE</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900">Oversized Pocket Tee</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(32)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-primary">$22.99</span>
+                                <span class="text-gray-500 text-sm line-through ml-1">$29.99</span>
+                            </div>
+                            <button class="text-highlight hover:text-primary transition">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1529374257234-475e568d7d93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                             alt="Long Sleeve Tee" class="w-full h-64 object-cover">
+                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:bg-highlight hover:text-white transition">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900">Long Sleeve Tee</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(41)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="font-bold text-primary">$34.99</span>
+                            <button class="text-highlight hover:text-primary transition">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-primary">Your Cart</h2>
+                <button id="close-cart" class="text-gray-500 hover:text-highlight">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="space-y-4">
+                <!-- Cart items will be added here dynamically -->
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 mt-6 pt-6">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Subtotal</span>
+                    <span id="cart-subtotal" class="font-medium">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">Shipping</span>
+                    <span class="font-medium">Calculated at checkout</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold mt-4">
+                    <span>Total</span>
+                    <span id="cart-total" class="text-highlight">$0.00</span>
+                </div>
+                
+                <button class="w-full bg-highlight hover:bg-opacity-90 text-white py-3 px-6 rounded-lg font-medium mt-6 transition">
+                    Checkout
+                </button>
+                
+                <div class="flex justify-center mt-4">
+                    <span class="text-gray-500 text-sm">or</span>
+                    <button id="continue-shopping" class="text-highlight text-sm font-medium ml-1 hover:underline">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div id="wishlist-sidebar" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-primary">Your Wishlist</h2>
+                <button id="close-wishlist" class="text-gray-500 hover:text-highlight">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="wishlist-items" class="space-y-4">
+                <!-- Wishlist items will be added here dynamically -->
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-heart text-4xl mb-2"></i>
+                    <p>Your wishlist is empty</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Notification -->
+    <div id="cart-notification" class="fixed bottom-4 right-4 bg-highlight text-white px-4 py-3 rounded-lg shadow-lg hidden">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span>Item added to cart!</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">URBAN THREADS</h3>
+                    <p class="text-gray-300">
+                        Premium quality apparel for the modern lifestyle. Comfort meets style in every stitch.
+                    </p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="hover:text-highlight transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-highlight transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-highlight transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-highlight transition"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">T-Shirts</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Hoodies</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Pants</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Accessories</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">New Arrivals</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Help</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Shipping</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Returns</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Size Guide</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-highlight transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">
+                        Subscribe to get updates on new arrivals and special offers.
+                    </p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="bg-secondary text-white px-4 py-2 rounded-l-lg focus:outline-none w-full">
+                        <button class="bg-highlight hover:bg-opacity-90 px-4 py-2 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300 text-sm">
+                    © 2023 Urban Threads. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-300 hover:text-highlight transition text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-highlight transition text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-300 hover:text-highlight transition text-sm">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.md\\:hidden button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Cart functionality
+        const cartBtn = document.getElementById('cart-btn');
+        const closeCart = document.getElementById('close-cart');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const continueShopping = document.getElementById('continue-shopping');
+        const addToCartBtn = document.getElementById('add-to-cart');
+        const cartNotification = document.getElementById('cart-notification');
+        const cartCount = document.getElementById('cart-count');
+        const cartItems = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTotal = document.getElementById('cart-total');
+
+        // Wishlist functionality
+        const wishlistBtn = document.getElementById('wishlist-btn');
+        const closeWishlist = document.getElementById('close-wishlist');
+        const wishlistSidebar = document.getElementById('wishlist-sidebar');
+        const wishlistToggle = document.getElementById('wishlist-toggle');
+        const wishlistCount = document.getElementById('wishlist-count');
+        const wishlistItems = document.getElementById('wishlist-items');
+
+        // Color selection
+        const colorOptions = document.querySelectorAll('.color-option');
+        
+        // Size selection
+        const sizeOptions = document.querySelectorAll('.size-option');
+
+        // Toggle cart sidebar
+        cartBtn.addEventListener('click', function() {
+            cartSidebar.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeCart.addEventListener('click', function() {
+            cartSidebar.classList.add('translate-x-full');
+            document.body.style.overflow = 'auto';
+        });
+
+        continueShopping.addEventListener('click', function() {
+            cartSidebar.classList.add('translate-x-full');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Toggle wishlist sidebar
+        wishlistBtn.addEventListener('click', function() {
+            wishlistSidebar.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeWishlist.addEventListener('click', function() {
+            wishlistSidebar.classList.add('translate-x-full');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Color selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Size selection
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Wishlist toggle
+        let isWishlisted = false;
+        wishlistToggle.addEventListener('click', function() {
+            isWishlisted = !isWishlisted;
+            if (isWishlisted) {
+                this.innerHTML = '<i class="fas fa-heart text-2xl text-highlight"></i>';
+                wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1;
+                
+                // Add to wishlist sidebar
+                const product = {
+                    name: 'Premium Cotton T-Shirt',
+                    price: 29.99,
+                    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
+                    color: document.querySelector('.color-option.selected').dataset.color,
+                    size: document.querySelector('.size-option.selected').dataset.size
+                };
+                
+                addToWishlist(product);
+            } else {
+                this.innerHTML = '<i class="far fa-heart text-2xl"></i>';
+                wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1;
+                
+                // Remove from wishlist sidebar
+                removeFromWishlist('Premium Cotton T-Shirt');
+            }
+        });
+
+        // Add to cart
+        let cart = [];
+        addToCartBtn.addEventListener('click', function() {
+            const product = {
+                name: 'Premium Cotton T-Shirt',
+                price: 29.99,
+                image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
+                color: document.querySelector('.color-option.selected').dataset.color,
+                size: document.querySelector('.size-option.selected').dataset.size,
+                quantity: parseInt(document.querySelector('input[type="number"]').value)
+            };
+            
+            // Check if item already exists in cart with same color and size
+            const existingItemIndex = cart.findIndex(item => 
+                item.name === product.name && 
+                item.color === product.color && 
+                item.size === product.size
+            );
+            
+            if (existingItemIndex !== -1) {
+                // Update quantity if already exists
+                cart[existingItemIndex].quantity += product.quantity;
+            } else {
+                // Add new item to cart
+                cart.push(product);
+            }
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Update cart sidebar
+            updateCartSidebar();
+            
+            // Show notification
+            cartNotification.classList.remove('hidden');
+            setTimeout(() => {
+                cartNotification.classList.add('hidden');
+            }, 3000);
+        });
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        function updateCartSidebar() {
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+                cartSubtotal.textContent = '$0.00';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+            
+            let itemsHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                itemsHTML += `
+                    <div class="flex items-center border-b border-gray-200 pb-4">
+                        <div class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="font-medium">${item.name}</h4>
+                            <p class="text-sm text-gray-500">${item.color}, ${item.size}</p>
+                            <div class="flex items-center mt-1">
+                                <button class="text-gray-500 hover:text-highlight" onclick="updateQuantity(this, -1, ${cart.indexOf(item)})">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="text-gray-500 hover:text-highlight" onclick="updateQuantity(this, 1, ${cart.indexOf(item)})">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-medium">$${(item.price * item.quantity).toFixed(2)}</div>
+                            <button class="text-gray-400 hover:text-highlight mt-2" onclick="removeFromCart(${cart.indexOf(item)})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItems.innerHTML = itemsHTML;
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        function addToWishlist(product) {
+            const existingItem = Array.from(wishlistItems.children).find(item => 
+                item.querySelector('h4').textContent === product.name && 
+                item.querySelector('p').textContent.includes(product.color) && 
+                item.querySelector('p').textContent.includes(product.size)
+            );
+            
+            if (!existingItem) {
+                const itemHTML = `
+                    <div class="flex items-center border-b border-gray-200 pb-4">
+                        <div class="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="font-medium">${product.name}</h4>
+                            <p class="text-sm text-gray-500">${product.color}, ${product.size}</p>
+                            <div class="text-highlight font-medium mt-1">$${product.price.toFixed(2)}</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <button class="bg-highlight text-white p-2 rounded-lg hover:bg-opacity-90 mb-2" onclick="moveToCart(this)">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-highlight" onclick="removeFromWishlist('${product.name}', '${product.color}', '${product.size}')">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                if (wishlistItems.querySelector('.text-center')) {
+                    wishlistItems.innerHTML = itemHTML;
+                } else {
+                    wishlistItems.insertAdjacentHTML('beforeend', itemHTML);
+                }
+            }
+        }
+
+        function removeFromWishlist(name, color, size) {
+            const items = Array.from(wishlistItems.children);
+            
+            if (items.length === 1 && items[0].querySelector('.text-center')) {
+                return;
+            }
+            
+            const itemToRemove = items.find(item => {
+                const itemName = item.querySelector('h4')?.textContent;
+                const itemDetails = item.querySelector('p')?.textContent;
+                return itemName === name && 
+                       (!color || itemDetails.includes(color)) && 
+                       (!size || itemDetails.includes(size));
+            });
+            
+            if (itemToRemove) {
+                itemToRemove.remove();
+                wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1;
+                
+                if (wishlistItems.children.length === 0) {
+                    wishlistItems.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-heart text-4xl mb-2"></i>
+                            <p>Your wishlist is empty</p>
+                        </div>
+                    `;
+                }
+                
+                // Also update the heart icon if removing the main product
+                if (name === 'Premium Cotton T-Shirt') {
+                    isWishlisted = false;
+                    wishlistToggle.innerHTML = '<i class="far fa-heart text-2xl"></i>';
+                }
+            }
+        }
+
+        // Global functions for button actions
+        window.updateQuantity = function(button, change, index) {
+            const quantityElement = button.parentElement.querySelector('span');
+            let newQuantity = parseInt(quantityElement.textContent) + change;
+            
+            if (newQuantity < 1) newQuantity = 1;
+            
+            quantityElement.textContent = newQuantity;
+            cart[index].quantity = newQuantity;
+            
+            updateCartSidebar();
+            updateCartCount();
+        };
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCartSidebar();
+            updateCartCount();
+        };
+
+        window.moveToCart = function(button) {
+            const itemElement = button.closest('div');
+            const name = itemElement.querySelector('h4').textContent;
+            const details = itemElement.querySelector('p').textContent.split(', ');
+            const price = parseFloat(itemElement.querySelector('div.text-highlight').textContent.replace('$', ''));
+            const image = itemElement.querySelector('img').src;
+            
+            const product = {
+                name: name,
+                price: price,
+                image: image,
+                color: details[0],
+                size: details[1],
+                quantity: 1
+            };
+            
+            // Add to cart
+            const existingItemIndex = cart.findIndex(item => 
+                item.name === product.name && 
+                item.color === product.color && 
+                item.size === product.size
+            );
+            
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+            
+            // Update cart
+            updateCartCount();
+            updateCartSidebar();
+            
+            // Remove from wishlist
+            removeFromWishlist(name, product.color, product.size);
+            
+            // Show notification
+            cartNotification.classList.remove('hidden');
+            setTimeout(() => {
+                cartNotification.classList.add('hidden');
+            }, 3000);
+        };
+    </script>
+</body>
+</html>

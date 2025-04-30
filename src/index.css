@@ -17,5 +17,8 @@ body {
     color: var(--text-color);
 }
  
-
+.cart-icon:hover .cart-dropdown,
+.wishlist-icon:hover .wishlist-dropdown {
+    display: block;
+}
   

@@ -17,10 +17,10 @@ const Toggle: React.FC<ToggleProps> = ({ darkMode, setDarkMode }) => {
             "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-600 focus-offset-2"
             )}
             >
-		    <span className="sr-only">Toggle dark mode</span>
+		    <span className="sr-only">Theme toggle</span>
             <span
         className={classNames(
-          darkMode ? "translate-x-5" : "translate-x-0",
+          darkMode ? "translate-x-2.5" : "translate-x-0",
           "pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
         )}
       >

@@ -6,8 +6,11 @@ import MenuIcon from './MenuIcon'
 import { navigation } from './helper'
 import { NavigationType } from './types'
 import Toggle from '../Toggle'
+import Wishlist from '../Wishlist'
+import Cart from '../Cart'
 
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMode, setDarkMode}) => {
+    //let colors = darkmode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
 	return (
         <nav 
             className="flex items-center justify-between py-12 px-4 lg:px-8" 
@@ -16,7 +19,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="flex lg:flex-1">
                 <Link to="/" >
-                <img src={Logo} alt="T-Shirt Store" className="h-45 w-aut rounded-2xl"  />
+                <img src={Logo} alt="T-Shirt Store" className="w-25 rounded-2xl"  />
                 </Link>
             </div>
             <MenuIcon setMobileMenuOpen={setMobileMenuOpen} />
@@ -38,8 +41,15 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
             </div>
             {/* Login */}
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
-                <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
-                
+                <div>
+                    <Wishlist darkMode={darkMode} />
+                </div>
+                <div>
+                    <Cart darkMode={darkMode} />
+                </div>
+                <div>
+                    <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                </div>                
                 <div>
                 <Link to="/login" className="text-sm font-semibold leading-6">
                     Log in <span aria-hidden="true">&rarr;</span>

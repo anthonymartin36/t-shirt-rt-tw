@@ -51,9 +51,10 @@ function IndividualProduct({ product }: { product: ProductType }) {
 
 	return (
 		<div className="group relative">
-			<div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-3 xl:aspect-w-7">
+			<div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg xl:aspect-h-3 xl:aspect-w-7">
 				
-			</div>					<Link to={`/products/${product.id}`} >					
+			</div>					
+			<Link to={`/products/${product.id}`} >					
 			<img src={product.image.image_url} alt={product.image.image_alt} className="h-45 w-aut rounded-2xl"/>
 			<h3 className="mt-4 text-sm">{product.description}</h3>
 			<p className="mt-1 text-lg font-medium">{product.price}</p></Link> 
