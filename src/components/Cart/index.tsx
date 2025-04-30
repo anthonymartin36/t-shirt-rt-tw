@@ -1,21 +1,39 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import { getAllCartApi } from '../../apis/cart'
+//import { CartType } from '../../modules/Cart/types'
+import {useState, useEffect} from 'react'
+//import { CartType } from '../../modules/Cart/types'
+import { CartType } from '../../modules/Cart/types' // Ensure CartType is imported
 
 interface WishlistProps {
     darkMode: boolean;
 }
 
-// const Wishlist: React.FC<WishlistProps> = ({ darkMode }) => {
-//     //console.log("Wishlist darkMode : ", darkMode)
-//     let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
-//     return (
-//         <div>
-//             {/* <!-- Wishlist Icon with Dropdown --> */}
-//             <div className="relative wishlist-icon">
-//                 <button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}></button>
-
+// What do I want in this component - 
+// 1) Get a Number of all the wishlist items and display them in the FontAwesome > Span 
+// 2) Be able to see a list of all the items in the wishlist items on Action > Dropdown
+// 3) Be able to remove the items from the wishlist
+// 4) Be able to increase/decrease the items on the wishlist// Explicitly define the type as CartType[]
 const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
+    const [cart, setCart] = useState<CartType[]>([]) 
+
+    useEffect(() => {
+        // Fetch cart data from the API
+        const fetchCart = async () => {
+            try {
+                const cartData = await getAllCartApi(); // Call the API
+                setCart(cartData) // Update the cart state with the fetched data
+            } catch (err) {
+                console.error('Error fetching cart data:', err)
+            }
+        };
+
+        fetchCart() // Call the fetch function
+    }, [])
+    let cartCount = cart.length ===0 ? cart.length : 0
+    //console.log("Cart : ", cart.length)
     let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
 	return (
 		<div>
@@ -26,27 +44,9 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
                     <span 
                         id="cart-count" 
                         className="absolute -top-2 -right-2 bg-highlight text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
-                        >0
+                        >{cartCount}
                     </span>
                 </button>
-                {/* <div className="cart-dropdown">
-                    <div className="flex justify-between items-center border-b pb-2 mb-2">
-                        <h3 className="font-medium">Shopping Cart</h3>
-                        <a href="#" className="text-sm text-blue-600">View cart</a>
-                    </div>
-                    <div id="cart-items" className="space-y-2">
-                        <p className="text-sm text-gray-500 py-4">Your cart is empty</p>
-                    </div>
-                    <div id="cart-total" className="border-t pt-2 mt-2 hidden">
-                        <div className="flex justify-between font-medium">
-                            <span>Subtotal:</span>
-                            <span>$0.00</span>
-                        </div>
-                        <a href="#" 
-                        className="block mt-4 w-full bg-black text-white text-center py-2 rounded-md hover:bg-gray-800 transition-colors">
-                        Checkout</a>
-                    </div>
-                </div> */}
             </div>
 		</div>
 	)
