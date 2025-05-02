@@ -16,7 +16,7 @@ const Wishlist: React.FC<CartProps> = ({ darkMode }) => {
                     <FontAwesomeIcon icon={faHeart} className="text-xl" />
                     <span 
                         id="wishlist-count" 
-                        className="absolute -top-2 -right-2 bg-highlight text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
+                        className="absolute -top-2 -right-2 bg-highlight bg-red-400 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
                         >0
                     </span>
                 </button>
