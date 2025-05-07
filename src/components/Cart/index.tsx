@@ -25,6 +25,7 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
             try {
                 const cartData = await getAllCartApi(); // Call the API
                 setCart(cartData) // Update the cart state with the fetched data
+                
             } catch (err) {
                 console.error('Error fetching cart data:', err)
             }
@@ -32,24 +33,34 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
 
         fetchCart() // Call the fetch function
     }, [])
-    let cartCount = cart.length ===0 ? cart.length : 0
-    //console.log("Cart : ", cart.length)
+    
+    console.log("Cart : ", cart.length)
     let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
 	return (
 		<div>
 			{/* Cart component content */}
             <div className="relative cart-icon">
             <button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
+                    <Navbar>
                     <FontAwesomeIcon icon={faShoppingBag} className="text-xl" /> 
                     <span 
                         id="cart-count" 
                         className="absolute -top-2 -right-2 bg-highlight bg-red-400 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
-                        >{cartCount}
+                        >{cart.length}
                     </span>
+                    </Navbar>
                 </button>
             </div>
 		</div>
 	)
 }
+
+function Navbar(props: { children: React.ReactNode }) {
+    return (
+      <nav className="navbar">
+        <ul className="navbar-nav">{props.children}</ul>
+      </nav>
+    );
+  }
 
 export default Cart
