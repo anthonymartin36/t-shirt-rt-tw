@@ -1,31 +1,31 @@
 import React from 'react'
+import { Menu } from '@headlessui/react' //
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
-import { getAllCartApi } from '../../apis/cart'
-//import { CartType } from '../../modules/Cart/types'
-import {useState, useEffect} from 'react'
-//import { CartType } from '../../modules/Cart/types'
-import { CartType } from '../../modules/Cart/types' // Ensure CartType is imported
+import { getAllCartApi, updateCartQuantityApi} from '../../apis/cart' //, addQuantityToCartItemApi 
+import {useState, useEffect} from 'react' 
+import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
+import { Link } from 'react-router-dom'
+import Button from '../Button'
+//import * as dotenv from 'dotenv' // import
+ // Ensure this is the correct path to your config
 
 interface WishlistProps {
     darkMode: boolean;
 }
 
-// What do I want in this component - 
-// 1) Get a Number of all the wishlist items and display them in the FontAwesome > Span 
-// 2) Be able to see a list of all the items in the wishlist items on Action > Dropdown
-// 3) Be able to remove the items from the wishlist
-// 4) Be able to increase/decrease the items on the wishlist// Explicitly define the type as CartType[]
+//dotenv.config()
+const base_url = import.meta.env.VITE_NODE_FRONT_URL
+
 const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
-    const [cart, setCart] = useState<CartType[]>([]) 
+    const [cart, setCart] = useState<CartTypeWithProductextendImage[]>([]) 
 
     useEffect(() => {
         // Fetch cart data from the API
         const fetchCart = async () => {
             try {
-                const cartData = await getAllCartApi(); // Call the API
+                const cartData = await getAllCartApi() // Call the API
                 setCart(cartData) // Update the cart state with the fetched data
-                
             } catch (err) {
                 console.error('Error fetching cart data:', err)
             }
@@ -34,33 +34,67 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
         fetchCart() // Call the fetch function
     }, [])
     
-    console.log("Cart : ", cart.length)
+    //console.log("Cart : ", cart.length)
     let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
 	return (
-		<div>
-			{/* Cart component content */}
-            <div className="relative cart-icon">
-            <button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
-                    <Navbar>
-                    <FontAwesomeIcon icon={faShoppingBag} className="text-xl" /> 
+    <>
+    <div>
+        <Menu as="div" className="relative inline-block text-left">
+            <Menu.Button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
+                <FontAwesomeIcon icon={faShoppingBag} className="text-xl" /> 
                     <span 
                         id="cart-count" 
                         className="absolute -top-2 -right-2 bg-highlight bg-red-400 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
-                        >{cart.length}
+                    >{cart.length}
                     </span>
-                    </Navbar>
-                </button>
-            </div>
-		</div>
+            </Menu.Button>
+       
+            <Menu.Items
+                className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+            >
+                { cart.map(item => {
+                    return (
+                        <div key={`${item.id}`} id={`${item.id}`}>
+                        <Menu.Item>
+                        <Link to={`/products/${item.product_id}`} className="block px-4 py-1 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden">
+                        <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm">
+                            <div className="text-left"> <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
+                            </div>
+                            <div className="text-left">
+                            {item.product.image.image_name} 
+                            <br />
+                            Quantity :  
+                            <br />
+                            <div className="">
+                            <form>
+                            <Button 
+                            type="submit"
+                            text=" - "
+                            handleClick={() => updateCartQuantityApi({quantity: 17 },item.id)} />
+                            </form> 
+                            </div>
+                            {item.quantity} 
+                            <form>
+                            <Button 
+                            type="submit"
+                            text=" + "
+                            handleClick={() => updateCartQuantityApi({quantity: 27}, item.id)} />
+                            </form>                           
+                            </div>
+                            </div>
+                            </Link>
+                        </Menu.Item>
+                        <div className="py-1" />
+                        <div className="border-b border-gray-200" />
+                        <div className="py-1" />
+                        </div>
+                    )})}
+            </Menu.Items>
+        </Menu>
+    </div>
+    </>
 	)
 }
 
-function Navbar(props: { children: React.ReactNode }) {
-    return (
-      <nav className="navbar">
-        <ul className="navbar-nav">{props.children}</ul>
-      </nav>
-    );
-  }
 
 export default Cart
