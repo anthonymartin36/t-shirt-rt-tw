@@ -5,7 +5,6 @@ import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { getAllCartApi, updateCartQuantityApi} from '../../apis/cart' //, addQuantityToCartItemApi 
 import {useState, useEffect} from 'react' 
 import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
-import { Link } from 'react-router-dom'
 import Button from '../Button'
 //import * as dotenv from 'dotenv' // import
  // Ensure this is the correct path to your config
@@ -56,7 +55,7 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
                     return (
                         <div key={`${item.id}`} id={`${item.id}`}>
                         <Menu.Item>
-                        <Link to={`/products/${item.product_id}`} className="block px-4 py-1 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden">
+                        
                         <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm">
                             <div className="text-left"> <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
                             </div>
@@ -70,7 +69,7 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
                             <Button 
                             type="submit"
                             text=" - "
-                            handleClick={() => updateCartQuantityApi({quantity: 17 },item.id)} />
+                            handleClick={() => updateCartQuantityApi(item.id, {quantity: 17 })} />
                             </form> 
                             </div>
                             {item.quantity} 
@@ -78,11 +77,10 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
                             <Button 
                             type="submit"
                             text=" + "
-                            handleClick={() => updateCartQuantityApi({quantity: 27}, item.id)} />
+                            handleClick={() => updateCartQuantityApi(item.id, {quantity: 27})} />
                             </form>                           
                             </div>
                             </div>
-                            </Link>
                         </Menu.Item>
                         <div className="py-1" />
                         <div className="border-b border-gray-200" />

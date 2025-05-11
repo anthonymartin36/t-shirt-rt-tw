@@ -45,11 +45,11 @@ export async function getCartQuantityApi(id: number): Promise<QuantityType> {
   }
 }
 
-// Update Quantity to Cart itemm (/api/v1/carts/:id/add_quantity)
-export async function (id: number, quantity: any): Promise<Quantity2Type> {
+// Update Quantity to Cart itemm (/api/v1/carts/:id/update_quantity)
+export async function updateCartQuantityApi(id: number, quantity: any): Promise<Quantity2Type> {
   try {
     const response = await request
-      .patch(`${rootUrl}/carts/${id}/add_quantity`)
+      .patch(`${rootUrl}/carts/${id}/update_quantity`)
       .send(quantity)
     return response.body
   } catch (error) {
