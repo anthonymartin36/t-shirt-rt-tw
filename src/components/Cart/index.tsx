@@ -1,13 +1,10 @@
 import React from 'react'
-import { Menu } from '@headlessui/react' //
+import { Menu } from '@headlessui/react' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
-import { getAllCartApi, updateCartQuantityApi} from '../../apis/cart' //, addQuantityToCartItemApi 
+import { getAllCartApi} from '../../apis/cart' //, addQuantityToCartItemApi  //, updateCartQuantityApi
 import {useState, useEffect} from 'react' 
 import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
-import Button from '../Button'
-//import * as dotenv from 'dotenv' // import
- // Ensure this is the correct path to your config
 
 interface WishlistProps {
     darkMode: boolean;
@@ -18,6 +15,16 @@ const base_url = import.meta.env.VITE_NODE_FRONT_URL
 
 const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
     const [cart, setCart] = useState<CartTypeWithProductextendImage[]>([]) 
+    const [buttonValue, setButtonValue] = useState(0)
+
+    const increment = () => {
+        setButtonValue(buttonValue + 1);
+    }
+    const decrement = () => {
+        if (buttonValue > 0) {
+            setButtonValue(buttonValue - 1);
+        }
+    }
 
     useEffect(() => {
         // Fetch cart data from the API
@@ -47,39 +54,29 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
                     >{cart.length}
                     </span>
             </Menu.Button>
-       
+            <div>
             <Menu.Items
                 className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
             >
                 { cart.map(item => {
                     return (
                         <div key={`${item.id}`} id={`${item.id}`}>
-                        <Menu.Item>
-                        
-                        <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm">
-                            <div className="text-left"> <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
+                        <Menu.Item disabled>
+                        <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
+                            <div className="text-left"> 
+                                <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
                             </div>
                             <div className="text-left">
                             {item.product.image.image_name} 
                             <br />
-                            Quantity :  
-                            <br />
-                            <div className="">
-                            <form>
-                            <Button 
-                            type="submit"
-                            text=" - "
-                            handleClick={() => updateCartQuantityApi(item.id, {quantity: 17 })} />
-                            </form> 
+                            <div className="flex items-center justify-between mt-2 mx-2">
+                            <button className="items-center justify-center bg-red-400 text-white w-5 h-5 rounded-md "
+                            onClick={() => decrement()} > - </button>
+                            <span> {buttonValue} </span>
+                            <button className="items-center justify-center bg-red-400 text-white w-5 h-5 rounded-md "
+                            onClick={() => increment()} > + </button></div>
                             </div>
-                            {item.quantity} 
-                            <form>
-                            <Button 
-                            type="submit"
-                            text=" + "
-                            handleClick={() => updateCartQuantityApi(item.id, {quantity: 27})} />
-                            </form>                           
-                            </div>
+
                             </div>
                         </Menu.Item>
                         <div className="py-1" />
@@ -88,11 +85,17 @@ const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
                         </div>
                     )})}
             </Menu.Items>
+            </div>
+
         </Menu>
     </div>
     </>
 	)
 }
 
+// function Counter(value: Number){
+    
+//     return buttonValue
+// }
 
 export default Cart
