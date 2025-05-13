@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getAProductApi } from '../../apis/products'
 import Footer from '../../components/Footer'
 import { ProductType } from '../../modules/Products/types'
-
+import CartButton from '../../modules/CartButton/index.tsx'
 
 const Product: React.FC = () => {
   const [darkMode, setDarkMode] = React.useState(true)
@@ -85,7 +85,7 @@ const Product: React.FC = () => {
                     <p className="">
                       Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
                     </p>
-                    
+                    <CartButton productId={product.id}/>
                 </div>
               </div>
             </div>

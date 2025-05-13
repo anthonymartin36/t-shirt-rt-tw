@@ -11,31 +11,48 @@ type Quantity2Type = {
   quantity: {
     quantity: number
   }
-
 }
 
+type CartType = {
+  quantity: number
+  customer_id: number
+  product_id: number
+}
 
-// GET all products (/api/v1/carts)
+// GET all carts (/api/v1/carts)
 export async function getAllCartApi(): Promise<[CartTypeWithProductextendImage]> {
   try {
     const response = await request.get(`${rootUrl}/carts`)
     return response.body
   } catch (error) {
-    throw console.error('Error fetching Products', error)
+    throw console.error('Error fetching Carts', error)
   }
 }
 
-// GET a product (/api/v1/carts/:id)
+// GET a carts (/api/v1/carts/:id)
 export async function getACartApi(id: Number): Promise<CartTypeWithProductextendImage> {
   try {
     const response = await request.get(`${rootUrl}/carts/${id}`,)
     return response.body
   } catch (error) {
-    throw console.error('Error fetching a Product', error)
+    throw console.error('Error fetching a Cart', error)
   }
 }
 
-// GET all products (/api/v1/carts/:id/quantity)
+// ADD a missing cat (/api/v1/carts/)
+export async function addToCartApi( cartData  : CartType ) { //, token: string
+  console.log('cartData: ', cartData )
+  try {
+    const response = await request
+      .post(`${rootUrl}/carts/`)
+      .send(cartData)
+    return response.body
+  } catch (error) {
+    throw console.error(`Error adding to Cart `, error)
+  }
+}
+
+// GET cart quantity (/api/v1/carts/:id/quantity)
 export async function getCartQuantityApi(id: number): Promise<QuantityType> {
   try {
     const response = await request.get(`${rootUrl}/carts/${id}/quantity`)
@@ -47,6 +64,7 @@ export async function getCartQuantityApi(id: number): Promise<QuantityType> {
 
 // Update Quantity to Cart itemm (/api/v1/carts/:id/update_quantity)
 export async function updateCartQuantityApi(id: number, quantity: any): Promise<Quantity2Type> {
+  console.log('updateCartQuantityApi: ', id, quantity)
   try {
     const response = await request
       .patch(`${rootUrl}/carts/${id}/update_quantity`)
