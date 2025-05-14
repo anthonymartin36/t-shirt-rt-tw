@@ -7,6 +7,7 @@ import { getAProductApi } from '../../apis/products'
 import Footer from '../../components/Footer'
 import { ProductType } from '../../modules/Products/types'
 import CartButton from '../../modules/CartButton/index.tsx'
+import WishlistButton from '../../modules/WishlistButton/index.tsx'
 
 const Product: React.FC = () => {
   const [darkMode, setDarkMode] = React.useState(true)
@@ -54,38 +55,47 @@ const Product: React.FC = () => {
 	return (
         <PageLayout>
 			  <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
-		      <div className="flex flex-1 min-h-screen">
+		      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 p-4">
             {/* <!-- Product Details --> */}
-            <div id={`${id}`} className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-2 gap-16 p-4">
+            <div className="flex flex-1 min-h-screen max-w-7xl mx-auto sm:sm-24 lg:max-w-7xl lg:px-9"> 
+              <div id={`${id}`} className="">
+                <div className="flex flex-col">
+                  
+                {product?.image && (
+                  <img
+                    src={`../${product.image.image_url}`}
+                    alt={product.image.image_alt}
+                    className="h-95 w-auto rounded-2xl"
+                  />
+                )}
+              </div>
               <div className="flex flex-col">
-                
-              {product?.image && (
-                <img
-                  src={`../${product.image.image_url}`}
-                  alt={product.image.image_alt}
-                  className="h-95 w-auto rounded-2xl"
-                />
-              )}
-            </div>
-            <div className="flex flex-col">
-              <h3 className="text-3xl font-bold tracking-tight">{product.description}</h3>
-              <div className="">
-                <div className="mt-6">
-                  <p className="text-2xl font-medium">${product.price}</p>
-                  <p className="text-sm mt-1">Including VAT (where applicable)</p>
-                </div>
-                <div className="mt-2 space-y-4">
-                    <ul className="list-disc pl-5">
-                        <li>Classic crew neck:</li>
-                        <li>{product.material}</li>
-                        <li>{product.colour}</li>
-                        <li>{product.size}</li>
-                        <li>{product.stock}</li>
-                    </ul>
-                    <p className="">
-                      Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
-                    </p>
-                    <CartButton productId={product.id}/>
+                <h3 className="text-3xl font-bold tracking-tight">{product.description}</h3>
+                <div className="">
+                  <div className="mt-6">
+                    <p className="text-2xl font-medium">${product.price}</p>
+                    <p className="text-sm mt-1">Including VAT (where applicable)</p>
+                  </div>
+                  <div className="mt-2 space-y-4">
+                      <ul className="list-disc pl-5">
+                          <li>Classic crew neck:</li>
+                          <li>{product.material}</li>
+                          <li>{product.colour}</li>
+                          <li>{product.size}</li>
+                          <li>{product.stock}</li>
+                      </ul>
+                      <p className="">
+                        Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
+                      </p>
+                      <div className="grid grid-cols-2 gap-16 p-4">
+                      <div className="flex flex-1 mt-2 space-y-4 ">
+                      <CartButton productId={product.id}/>
+                      </div>
+                      <div className="flex flex-2 mt-2 space-y-4 ">
+                      <WishlistButton productId={product.id}/>
+                      </div>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -41,7 +41,7 @@ export async function getAWishlistApi(id: Number): Promise<CartTypeWithProductex
 
 // ADD a missing cat (/api/v1/carts/)
 export async function addToWishlistApi( cartData  : CartType ) { //, token: string
-  console.log('cartData: ', cartData )
+  console.log('wishlistData: ', cartData )
   try {
     const response = await request
       .post(`${rootUrl}/wishlists/`)

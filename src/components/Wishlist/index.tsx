@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu } from '@headlessui/react' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { getAllWishlistApi, updateWishlistQuantityApi } from '../../apis/wishlist' // //, updateCartQuantityApi
 import {useState } from 'react' 
 //import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
@@ -30,7 +30,7 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
     <div>
         <Menu as="div" className="relative inline-block text-left">
             <Menu.Button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
-                <FontAwesomeIcon icon={faShoppingBag} className="text-xl" /> 
+                <FontAwesomeIcon icon={faHeart} className="text-xl" /> 
                     <span 
                         id="cart-count" 
                         className="absolute -top-2 -right-2 bg-highlight bg-red-400 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
