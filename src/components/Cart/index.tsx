@@ -52,7 +52,7 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
                             <div className="text-left">
                             {item.product.image.image_name} 
                             <br />
-                            <WishListItem quantity={item.quantity} id={item.id} />
+                            <CartItem quantity={item.quantity} id={item.id} />
                             </div>
                             </div>
                         </Menu.Item>
@@ -69,12 +69,12 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
 	)
 }
 
-interface WishListItemProps {
+interface CartItemProps {
     id: number
     quantity: number
 }
 
-const WishListItem: React.FC<WishListItemProps> = ({ id, quantity }) => {
+const CartItem: React.FC<CartItemProps> = ({ id, quantity }) => {
   const [buttonValue, setButtonValue] = useState(quantity)
 
   // Access the query client to invalidate or update the cart query
