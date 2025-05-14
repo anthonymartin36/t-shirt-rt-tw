@@ -5,23 +5,24 @@ import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { getAllCartApi, updateCartQuantityApi } from '../../apis/cart' // //, updateCartQuantityApi
 import {useState } from 'react' 
 //import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
 
-interface WishlistProps {
+interface darkModeProps {
     darkMode: boolean;
 }
 
 //dotenv.config()
 const base_url = import.meta.env.VITE_NODE_FRONT_URL
 
-const Cart: React.FC<WishlistProps> = ({ darkMode }) => {
+const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
     //const [cart, setCart] = useState<CartTypeWithProductextendImage[]>([]) 
     const { data: fetchCart, isLoading, isError} = useQuery({
         queryFn: () => getAllCartApi(),
         queryKey: ["carts"]  
     })
-    if (isLoading) return <div>Loading...</div>
-    if (isError) return <div>Error fetching cart data</div>
+    if (isLoading) return <div>Loading</div>
+    if (isError) return <div>Error </div>
 
     let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
 	return (
@@ -99,16 +100,15 @@ const WishListItem: React.FC<WishListItemProps> = ({ id, quantity }) => {
 
   // Handle button clicks to update the quantity
   const handleDecrement = () => {
-    setButtonValue(buttonValue - 1)
-    console.log("buttonValue : ", buttonValue)
-    updateQuantityMutation({ quantity: buttonValue }); // Pass the correct argument
+    setButtonValue(prevCount => prevCount - 1) // Pass the correct argument
   }
 
   const handleIncrement = () => {
-    setButtonValue(buttonValue + 1)
-    console.log("buttonValue : ", buttonValue)
-    updateQuantityMutation({ quantity: buttonValue }) // Pass the correct argument
+    setButtonValue(prevCount => prevCount + 1)// Pass the correct argument
   }
+  useEffect(() => {
+    updateQuantityMutation({ quantity: buttonValue });
+  }, [buttonValue])
 
   return (
     <div key={`${id}`} id={`${id}`} className="flex items-center justify-between mt-2 mx-2">
