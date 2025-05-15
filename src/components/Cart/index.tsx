@@ -50,7 +50,7 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
                                 <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
                             </div>
                             <div className="text-left">
-                            {item.product.image.image_name} 
+                            <strong>{item.product.image.image_name} </strong>
                             <br />
                             <CartItem quantity={item.quantity} id={item.id} />
                             </div>

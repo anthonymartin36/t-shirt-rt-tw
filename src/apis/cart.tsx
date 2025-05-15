@@ -41,7 +41,7 @@ export async function getACartApi(id: Number): Promise<CartTypeWithProductextend
 
 // ADD a missing cat (/api/v1/carts/)
 export async function addToCartApi( cartData  : CartType ) { //, token: string
-  console.log('cartData: ', cartData )
+  //console.log('cartData: ', cartData )
   try {
     const response = await request
       .post(`${rootUrl}/carts/`)
@@ -64,7 +64,7 @@ export async function getCartQuantityApi(id: number): Promise<QuantityType> {
 
 // Update Quantity to Cart itemm (/api/v1/carts/:id/update_quantity)
 export async function updateCartQuantityApi(id: number, quantity: any): Promise<Quantity2Type> {
-  console.log('updateCartQuantityApi: ', id, quantity)
+  //console.log('updateCartQuantityApi: ', id, quantity)
   try {
     const response = await request
       .patch(`${rootUrl}/carts/${id}/update_quantity`)

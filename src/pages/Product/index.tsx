@@ -2,9 +2,9 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import PageLayout from '../../components/PageLayout'
 import Header from "../../components/Header"
+import Footer from '../../components/Footer'
 import { useQuery } from '@tanstack/react-query'
 import { getAProductApi } from '../../apis/products'
-import Footer from '../../components/Footer'
 import { ProductType } from '../../modules/Products/types'
 import CartButton from '../../modules/CartButton/index.tsx'
 import WishlistButton from '../../modules/WishlistButton/index.tsx'
@@ -56,7 +56,7 @@ const Product: React.FC = () => {
         <PageLayout>
 			  <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-screen max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8  max-w-7xl mx-auto">
           {/* Product Image */}
           <div id={`${id}`} className="flex justify-center items-center">
             {product?.image && (
@@ -69,7 +69,7 @@ const Product: React.FC = () => {
           </div>
 
           {/* Product Details */}
-          <div className="mt-6">
+          <div className="m-6 flex flex-col justify-center items-start">
             <h3 className="text-3xl font-bold tracking-tight">{product.description}</h3>
             <p className="text-2xl font-medium">${product.price}</p>
             <p className="text-sm mt-1">Including VAT (where applicable)</p>

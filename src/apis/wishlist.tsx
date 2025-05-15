@@ -19,7 +19,7 @@ type CartType = {
   product_id: number
 }
 
-// GET all carts (/api/v1/carts)
+// GET all carts (/api/v1/wishlists)
 export async function getAllWishlistApi(): Promise<[CartTypeWithProductextendImage]> {
   try {
     const response = await request.get(`${rootUrl}/wishlists`)
@@ -29,7 +29,7 @@ export async function getAllWishlistApi(): Promise<[CartTypeWithProductextendIma
   }
 }
 
-// GET a carts (/api/v1/carts/:id)
+// GET a carts (/api/v1/wishlists/:id)
 export async function getAWishlistApi(id: Number): Promise<CartTypeWithProductextendImage> {
   try {
     const response = await request.get(`${rootUrl}/wishlists/${id}`,)
@@ -39,9 +39,8 @@ export async function getAWishlistApi(id: Number): Promise<CartTypeWithProductex
   }
 }
 
-// ADD a missing cat (/api/v1/carts/)
-export async function addToWishlistApi( cartData  : CartType ) { //, token: string
-  console.log('wishlistData: ', cartData )
+// ADD a missing cat (/api/v1/wishlists/)
+export async function addToWishlistApi( cartData  : CartType ) { 
   try {
     const response = await request
       .post(`${rootUrl}/wishlists/`)
@@ -52,7 +51,19 @@ export async function addToWishlistApi( cartData  : CartType ) { //, token: stri
   }
 }
 
-// GET cart quantity (/api/v1/carts/:id/quantity)
+// ADD a missing cat (/api/v1/wishlists/)
+export async function addFromWishlistToCartApi( id  : Number ) { 
+  try {
+    const response = await request
+      .post(`${rootUrl}/wishlists/${id}/cart`)
+    return response.body
+  } catch (error) {
+    throw console.error(`Error adding to Wishlists `, error)
+  }
+}
+
+
+// GET cart quantity (/api/v1/wishlists/:id/quantity)
 export async function getWishlistQuantityApi(id: number): Promise<QuantityType> {
   try {
     const response = await request.get(`${rootUrl}/wishlists/${id}/quantity`)
@@ -62,9 +73,8 @@ export async function getWishlistQuantityApi(id: number): Promise<QuantityType> 
   }
 }
 
-// Update Quantity to Cart itemm (/api/v1/carts/:id/update_quantity)
+// Update Quantity to Cart itemm (/api/v1/wishlists/:id/update_quantity)
 export async function updateWishlistQuantityApi(id: number, quantity: any): Promise<Quantity2Type> {
-  console.log('updateCartQuantityApi: ', id, quantity)
   try {
     const response = await request
       .patch(`${rootUrl}/wishlists/${id}/update_quantity`)

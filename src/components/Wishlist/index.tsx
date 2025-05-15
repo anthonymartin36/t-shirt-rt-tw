@@ -2,9 +2,8 @@ import React from 'react'
 import { Menu } from '@headlessui/react' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { getAllWishlistApi, updateWishlistQuantityApi } from '../../apis/wishlist' // //, updateCartQuantityApi
+import { getAllWishlistApi, updateWishlistQuantityApi, addFromWishlistToCartApi } from '../../apis/wishlist' // //, updateCartQuantityApi
 import {useState } from 'react' 
-//import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
@@ -39,34 +38,70 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
             </Menu.Button>
             <div>
             <Menu.Items
-                className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                className="absolute right-0 z-10 mt-2 w-54 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
             >
                 { fetchWishlist && fetchWishlist.map(item => {
                     return (
                         <div key={`${item.id}`} id={`${item.id}`}>
-                        <Menu.Item disabled>
-                        <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
-                            <div className="text-left"> 
-                                <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
+                          <Menu.Item disabled>
+                            <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
+                              <div className=""> 
+                                  <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
+                              </div>
+                              <div className="">
+                                <strong>{item.product.image.image_name}</strong> 
+                                <br />
+                                <WishlistItem quantity={item.quantity} id={item.id} />
+                                <br />
+                                <AddFromWishlistToCart id={item.id} />
+                              </div>
                             </div>
-                            <div className="text-left">
-                            {item.product.image.image_name} 
-                            <br />
-                            <WishlistItem quantity={item.quantity} id={item.id} />
-                            </div>
-                            </div>
-                        </Menu.Item>
+                          </Menu.Item>
                         <div className="py-1" />
                         <div className="border-b border-gray-200" />
                         <div className="py-1" />
                         </div>
                     )})}
-            </Menu.Items>
+              </Menu.Items>
             </div>
         </Menu>
     </div>
     </>
     )
+}
+const AddFromWishlistToCart: React.FC<{ id: number }> = ({ id }) => {
+  
+  const queryClient = useQueryClient()
+
+  const { mutate: addToCartMutation } = useMutation({
+    mutationKey: ['addFromWishlistToCart', id], // Unique key for the mutation
+    mutationFn: async () => {
+      await addFromWishlistToCartApi(id)
+    },
+    onSuccess: () => {
+      // Optionally invalidate the cart query to refresh the data
+      queryClient.invalidateQueries({ queryKey: ['wishlists'] });
+    },
+    onError: (error) => {
+      console.error('Error adding to cart:', error);
+    }
+  })
+  const addToCart = () => {
+    addToCartMutation() // Trigger the mutation
+  }
+
+  return(
+    <> 
+    <div>
+      <button
+        className="items-center justify-center bg-red-400 text-white w-20 h-5 rounded-md"
+        onClick={addToCart}
+      >
+        Add to Cart
+      </button>
+    </div>
+    </>
+  )
 }
 
 interface WishlistItemProps {

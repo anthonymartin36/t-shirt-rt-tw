@@ -8,6 +8,8 @@ import Register from './src/pages/Register'
 import App from './src/components/App'
 import React from 'react'
 import Product from './src/pages/Product'
+import Cart from './src/pages/Cart'
+import Wishlist from './src/pages/Wishlist'
 
 const router = createBrowserRouter(
       createRoutesFromElements(
@@ -17,6 +19,8 @@ const router = createBrowserRouter(
             <Route path="Register" element={<Register />} />
             <Route path="Login" element={<Login />} />
             <Route path="Products/:id" element={<Product />} />
+            <Route path="Cart" element={<Cart />} />
+            <Route path="Wishlist" element={<Wishlist />} />
         </Route>
       </>,
       )
