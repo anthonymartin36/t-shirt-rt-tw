@@ -55,49 +55,37 @@ const Product: React.FC = () => {
 	return (
         <PageLayout>
 			  <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
-		      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 p-4">
-            {/* <!-- Product Details --> */}
-            <div className="flex flex-1 min-h-screen max-w-7xl mx-auto sm:sm-24 lg:max-w-7xl lg:px-9"> 
-              <div id={`${id}`} className="">
-                <div className="flex flex-col">
-                  
-                {product?.image && (
-                  <img
-                    src={`../${product.image.image_url}`}
-                    alt={product.image.image_alt}
-                    className="h-95 w-auto rounded-2xl"
-                  />
-                )}
-              </div>
-              <div className="flex flex-col">
-                <h3 className="text-3xl font-bold tracking-tight">{product.description}</h3>
-                <div className="">
-                  <div className="mt-6">
-                    <p className="text-2xl font-medium">${product.price}</p>
-                    <p className="text-sm mt-1">Including VAT (where applicable)</p>
-                  </div>
-                  <div className="mt-2 space-y-4">
-                      <ul className="list-disc pl-5">
-                          <li>Classic crew neck:</li>
-                          <li>{product.material}</li>
-                          <li>{product.colour}</li>
-                          <li>{product.size}</li>
-                          <li>{product.stock}</li>
-                      </ul>
-                      <p className="">
-                        Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
-                      </p>
-                      <div className="grid grid-cols-2 gap-16 p-4">
-                      <div className="flex flex-1 mt-2 space-y-4 ">
-                      <CartButton productId={product.id}/>
-                      </div>
-                      <div className="flex flex-2 mt-2 space-y-4 ">
-                      <WishlistButton productId={product.id}/>
-                      </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-screen max-w-7xl mx-auto">
+          {/* Product Image */}
+          <div id={`${id}`} className="flex justify-center items-center">
+            {product?.image && (
+              <img
+                src={`../${product.image.image_url}`}
+                alt={product.image.image_alt}
+                className="h-auto w-full max-w-md rounded-2xl lg:max-w-full"
+              />
+            )}
+          </div>
+
+          {/* Product Details */}
+          <div className="mt-6">
+            <h3 className="text-3xl font-bold tracking-tight">{product.description}</h3>
+            <p className="text-2xl font-medium">${product.price}</p>
+            <p className="text-sm mt-1">Including VAT (where applicable)</p>
+            <ul className="list-disc pl-5">
+              <li>Classic crew neck:</li>
+              <li>{product.material}</li>
+              <li>{product.colour}</li>
+              <li>{product.size}</li>
+              <li>{product.stock}</li>
+            </ul>
+            <p className="mt-4">
+              Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
+            </p>
+            <div className="grid grid-cols-2 gap-4 mt-6">
+              <CartButton productId={product.id} />
+              <WishlistButton productId={product.id} />
             </div>
           </div>
         </div>
