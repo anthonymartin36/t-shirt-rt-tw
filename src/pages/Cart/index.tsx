@@ -10,6 +10,7 @@ import { CartTypeWithProductextendImage } from '../../modules/Cart/types'
 const Cart: React.FC = () => {
     const [darkMode, setDarkMode] = React.useState(true)
     let total: number= 0
+    let gst: number = 0
     const shipping: number = 5.60
     const {
 		data: carts,
@@ -100,13 +101,13 @@ const Cart: React.FC = () => {
                     </div>
                     <div  className="flex justify-between mt-4">
                         <div className="text-left">Shipping (NZ Courier)</div>
-                        <div className="text-right"> $ 5.60 </div>
+                        <div className="text-right"> $ {shipping.toFixed(2)}</div>
                     </div>
                     <div className="flex justify-between mt-4">
-                        <div className="text-left hidden">{total = carts.reduce((acc, cart) => acc + cart.product.price * cart.quantity, 0)}</div>
+                        <div className="text-left hidden">{total = Number(carts.reduce((acc, cart) => acc + cart.product.price * cart.quantity, 0).toFixed(2))}</div>
                         <div className="text-left"> Total </div>
                         <div  className="text-right"> 
-                            $ { shipping + total + parseInt((total*.15).toFixed(2)) }
+                            $ { total + shipping + Number((carts.reduce((acc, cart) => acc + cart.product.price * cart.quantity, 0) *.15).toFixed(2)) }
                         </div> 
                     </div>
                     <div className="flex justify-between text-right font-medium text-gray-900">
