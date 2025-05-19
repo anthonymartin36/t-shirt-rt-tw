@@ -56,7 +56,7 @@ const Product: React.FC = () => {
         <PageLayout>
 			  <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8  max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 py-6  max-w-7xl mx-auto">
           {/* Product Image */}
           <div id={`${id}`} className="flex justify-center items-center">
             {product?.image && (
@@ -69,6 +69,7 @@ const Product: React.FC = () => {
           </div>
 
           {/* Product Details */}
+          <div className="mx-auto lg:max-w-4xl sm:max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="m-6 flex flex-col justify-center items-start">
             <h3 className="text-3xl font-bold tracking-tight">{product.description}</h3>
             <p className="text-2xl font-medium">${product.price}</p>
@@ -84,9 +85,10 @@ const Product: React.FC = () => {
               Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
             </p>
             <div className="grid grid-cols-2 gap-4 mt-6">
-              <CartButton productId={product.id} />
               <WishlistButton productId={product.id} />
+              <CartButton productId={product.id} />
             </div>
+          </div>
           </div>
         </div>
         <Footer />

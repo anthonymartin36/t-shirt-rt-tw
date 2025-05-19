@@ -10,7 +10,6 @@ interface WishlistButtonProps {
 const WishlistButton: React.FC<WishlistButtonProps> = ({ productId }) => {
     const queryClient = useQueryClient()
     const NewWishlist= { product_id: productId, customer_id: 1, quantity: 1 }
-    console.log("NewWishlist : ", NewWishlist)
     const mutate = useMutation({
         mutationFn: async () => {
             await addToWishlistApi(NewWishlist)

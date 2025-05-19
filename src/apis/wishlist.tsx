@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { CartTypeWithProductextendImage } from '../modules/Cart/types'
+import { WishlistType, WishlistTypeWithProductextendImage } from '../types/wishlist'
 const rootUrl = import.meta.env.VITE_NODE_API_URL + '/api/v1' 
 
 type QuantityType = {
@@ -13,14 +13,8 @@ type Quantity2Type = {
   }
 }
 
-type CartType = {
-  quantity: number
-  customer_id: number
-  product_id: number
-}
-
 // GET all carts (/api/v1/wishlists)
-export async function getAllWishlistApi(): Promise<[CartTypeWithProductextendImage]> {
+export async function getAllWishlistApi(): Promise<[WishlistTypeWithProductextendImage]> {
   try {
     const response = await request.get(`${rootUrl}/wishlists`)
     return response.body
@@ -30,7 +24,7 @@ export async function getAllWishlistApi(): Promise<[CartTypeWithProductextendIma
 }
 
 // GET a carts (/api/v1/wishlists/:id)
-export async function getAWishlistApi(id: Number): Promise<CartTypeWithProductextendImage> {
+export async function getAWishlistApi(id: Number): Promise<WishlistTypeWithProductextendImage> {
   try {
     const response = await request.get(`${rootUrl}/wishlists/${id}`,)
     return response.body
@@ -40,11 +34,12 @@ export async function getAWishlistApi(id: Number): Promise<CartTypeWithProductex
 }
 
 // ADD a missing cat (/api/v1/wishlists/)
-export async function addToWishlistApi( cartData  : CartType ) { 
+export async function addToWishlistApi( NewWishlist  : WishlistType ) { 
   try {
     const response = await request
       .post(`${rootUrl}/wishlists/`)
-      .send(cartData)
+      .send(NewWishlist)
+    console.log("New Wishlist : ", NewWishlist, " Response : ", response.body )
     return response.body
   } catch (error) {
     throw console.error(`Error adding to Wishlists `, error)

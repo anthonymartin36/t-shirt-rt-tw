@@ -6,11 +6,9 @@ interface CartButtonProps {
     productId: number;
 }
 
-
 const CartButton: React.FC<CartButtonProps> = ({ productId }) => {
     const queryClient = useQueryClient()
     const NewCart= { product_id: productId, customer_id: 1, quantity: 1 }
-    //console.log("Newcart : ", NewCart)
     const mutate = useMutation({
         mutationFn: async () => {
             await addToCartApi(NewCart)

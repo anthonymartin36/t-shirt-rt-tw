@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { getAllCartApi, updateCartQuantityApi } from '../../apis/cart' // //, updateCartQuantityApi
 import {useState } from 'react' 
-//import { CartTypeWithProductextendImage } from '../../modules/Cart/types' // Ensure CartType is imported
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
@@ -16,15 +15,21 @@ interface darkModeProps {
 const base_url = import.meta.env.VITE_NODE_FRONT_URL
 
 const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
-    //const [cart, setCart] = useState<CartTypeWithProductextendImage[]>([]) 
-    const { data: fetchCart, isLoading, isError} = useQuery({
-        queryFn: () => getAllCartApi(),
-        queryKey: ["carts"]  
-    })
-    if (isLoading) return <div>Loading</div>
-    if (isError) return <div>Error </div>
-
-    let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
+  const { data: fetchCart, isLoading, isError} = useQuery({
+      queryFn: () => getAllCartApi(),
+      queryKey: ["carts"]  
+  })
+  let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
+  if (isLoading||isError) return (
+    <div>
+      <Menu as="div" className="relative inline-block text-left">
+        <Menu.Button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
+            <FontAwesomeIcon icon={faShoppingBag} className="text-xl" /> 
+        </Menu.Button>
+      </Menu>    
+    </div>
+  )
+  //console.log("fetchCart.length : ", fetchCart.length)
 	return (
     <>
     <div>
