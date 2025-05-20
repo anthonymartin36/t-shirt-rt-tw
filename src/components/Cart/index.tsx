@@ -6,6 +6,7 @@ import { getAllCartApi, updateCartQuantityApi } from '../../apis/cart' // //, up
 import {useState } from 'react' 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 interface darkModeProps {
     darkMode: boolean;
@@ -46,9 +47,17 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
             <Menu.Items
                 className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
             >
+              <div className="border-b justify-center items-center border-gray-200 py-2 px-5 " >
+                <Menu.Item disabled>
+                  <Link to="/cart" className="font-medium text-indigo-600 hover:text-indigo-500"> 
+    
+                  Cart
+                  </Link>
+                </Menu.Item>
+             </div>
                 { fetchCart && fetchCart.map(item => {
                     return (
-                        <div key={`${item.id}`} id={`${item.id}`}>
+                        <div key={`${item.id}`} id={`${item.id}`} className="py-1" >
                         <Menu.Item disabled>
                         <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
                             <div className="text-left"> 
@@ -63,7 +72,6 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
                         </Menu.Item>
                         <div className="py-1" />
                         <div className="border-b border-gray-200" />
-                        <div className="py-1" />
                         </div>
                     )})}
             </Menu.Items>

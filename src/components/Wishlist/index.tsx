@@ -6,7 +6,7 @@ import { getAllWishlistApi, updateWishlistQuantityApi} from '../../apis/wishlist
 import {useState } from 'react' 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom' //useNavigate,
+import { Link } from 'react-router-dom' 
 
 interface darkModeProps {
     darkMode: boolean;
@@ -16,15 +16,11 @@ interface darkModeProps {
 const base_url = import.meta.env.VITE_NODE_FRONT_URL
 
 const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
-  // const navigate = useNavigate()
   const { data: fetchWishlist, isLoading, isError} = useQuery({
       queryFn: () => getAllWishlistApi(),
       queryKey: ["wishlists"]  
   })
 
-  // const handleClick = () => {
-  //   navigate('cart');
-  // }
   let colors = darkMode ? { "normal": 100, "hover" : "400" } : { "normal": 700, "hover" : "900" } 
   if (isLoading||isError) return (
     <div>
@@ -52,29 +48,25 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
           <Menu.Items
               className="absolute right-0 z-10 mt-2 w-54 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
           >
-            <div className="border-b border-gray-200 py-5 px-5" >
-            <Menu.Item disabled>
-              <Link to="/cart" className="text-sm font-semibold leading-6 text-gray-900"> 
-                {/* className="flex w-full justify-center rounded-md bg-red-600 px-1.5 py-1.5 text-sm font-semibold leading-6 text-white shadow-md hover:bg-red-500"
-                onClick={(e) => {
-                  e.stopPropagation(); handleClick();}}> */}
-              Wishlist
-              </Link>
-            </Menu.Item>
-              <div className="border-b border-gray-200" />
-            </div>
+            <div className="border-b justify-center items-center border-gray-200 py-2 px-5" >
+              <Menu.Item disabled>
+                <Link to="/wishlist" className="font-medium text-indigo-600 hover:text-indigo-500"> 
+                Wishlist
+                </Link>
+              </Menu.Item>
+             </div>
 
               { fetchWishlist && fetchWishlist.map(item => {
                   return (
                     <>
                       <div className="py-1" />  
-                      <div key={`${item.id}`} id={`${item.id}`}>
+                      <div key={`${item.id}`} id={`${item.id}`} className="py-1">
                         <Menu.Item disabled>
                           <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
                             <div className=""> 
                                 <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
                             </div>
-                            <div className="">
+                            <div className="text-left">
                               <strong>{item.product.image.image_name}</strong> 
                               <br />
                               <WishlistItem quantity={item.quantity} id={item.id} />
@@ -83,7 +75,6 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
                         </Menu.Item>
                       <div className="py-1" />
                       <div className="border-b border-gray-200" />
-                      <div className="py-1" />
                       </div>
                       </>
                   )})}
