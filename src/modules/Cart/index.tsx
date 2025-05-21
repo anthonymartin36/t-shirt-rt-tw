@@ -58,7 +58,7 @@ const Cartt: React.FC = () => {
 						{cart.quantity >= 2 ? (
 							<div className="ml-4 text-right">
 							<p> $ {cart.product.price}</p>
-							<p> times {cart.quantity} is $ { cart.quantity * cart.product.price}</p>
+							<p> times {cart.quantity} is $ {(cart.quantity * cart.product.price).toFixed(2)}</p>
 								</div>
 						):(
 							<p className="ml-4"> $ {cart.product.price}</p>
