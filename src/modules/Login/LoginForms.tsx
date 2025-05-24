@@ -10,10 +10,14 @@ const LoginForms: React.FC = () => {
     //const userLogged = useAuth0().user
     const navigate = useNavigate()
     //TODO: replace placeholder user object with the one from auth0
-    
+
     const handleSignIn = () => {
-      log.loginWithRedirect() //{ redirect_uri: 'http://localhost:5173/registeruser' }
-      navigate('/')
+        //Check if user is vaild
+        //Call API to validate user
+        //If valid, redirect to home page
+        //If not valid, show error message 
+        log.loginWithRedirect() //{ redirect_uri: 'http://localhost:5173/registeruser' }
+        navigate('/')
     }
 	return (
 		<div>

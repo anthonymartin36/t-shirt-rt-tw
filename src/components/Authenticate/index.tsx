@@ -2,9 +2,12 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 //import { useNavigate } from 'react-router-dom'
+import { Menu } from '@headlessui/react' 
 
 export default function Authenticate() {
   const appColour = 'red'
+  let colors =  {"normal": 100, "hover" : "400"} // darkMode ? {} : { "normal": 700, "hover" : "900" } 
+
   const log = useAuth0()
   const userLogged = useAuth0().user
   //const navigate = useNavigate()
@@ -21,13 +24,28 @@ export default function Authenticate() {
         <div className="">
           <div className="">
             <IfAuthenticated>
-              <Link className="" to="/" onClick={handleSignOut}>
-                SIGN OUT
-              </Link>
               {userLogged && ( 
-                <div className="">
-                  <img  src={userLogged?.picture} alt={userLogged?.nickname} className="" />
-                </div>
+                <Menu as="div" className="relative inline-block text-left">
+                  <Menu.Button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
+                    <div className="">
+                      <img src={userLogged?.picture} alt={userLogged?.nickname}
+                        height={25}
+                        width={25}
+                        className="rounded-full aspect-square object-cover" />
+                    </div>
+                  </Menu.Button>
+                  <Menu.Items
+                    className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                  >
+                  <Menu.Item disabled>
+                    <div className="border-b justify-center items-center border-gray-200 py-2 px-5">
+                    <Link to="/" onClick={handleSignOut} className="font-medium text-indigo-600 hover:text-indigo-500">
+                      Sign Out
+                    </Link>
+                    </div>
+                  </Menu.Item>
+                  </Menu.Items>
+                </Menu>
               )}
             </IfAuthenticated>
           </div>
