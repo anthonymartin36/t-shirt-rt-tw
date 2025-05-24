@@ -58,9 +58,9 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
 
               { fetchWishlist && fetchWishlist.map(item => {
                   return (
-                    <>
+                    <div key={`${item.id}`} id={`${item.id}`} >
                       <div className="py-1" />  
-                      <div key={`${item.id}`} id={`${item.id}`} className="py-1">
+                      <div className="py-1">
                         <Menu.Item disabled>
                           <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
                             <div className=""> 
@@ -76,7 +76,7 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
                       <div className="py-1" />
                       <div className="border-b border-gray-200" />
                       </div>
-                      </>
+                      </div>
                   )})}
             </Menu.Items>
           </div>

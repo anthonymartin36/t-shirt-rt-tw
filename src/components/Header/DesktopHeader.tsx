@@ -7,6 +7,7 @@ import { navigation } from './helper'
 import { NavigationType } from './types'
 import Toggle from '../Toggle'
 import Wishlist from '../Wishlist'
+import Authenticate from '../Authenticate'
 import Cart from '../Cart'
 
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMode, setDarkMode}) => {
@@ -51,14 +52,15 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({setMobileMenuOpen, darkMod
                     <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
                 </div>                
                 <div>
-                <Link to="/login" className="text-sm font-semibold leading-6">
+                    <Authenticate />
+                {/* <Link to="/login" className="text-sm font-semibold leading-6">
                     Log in <span aria-hidden="true">&rarr;</span>
-                </Link>
+                </Link> */}
                 </div>
             </div>
         </div>
         </nav>
-	);
-};
+	)
+}
 
 export default DesktopHeader
