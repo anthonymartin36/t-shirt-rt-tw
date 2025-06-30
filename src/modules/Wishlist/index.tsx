@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { getAllWishlistApi } from '../../apis/wishlist'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { addFromWishlistToCartApi, getAllWishlistApi } from '../../apis/wishlist'
 import { WishlistTypeWithProductextendImage } from './types'
 import WishlistCalculation from './WishlistCalculation'
 import WishlistItem from './WishlistItem'
@@ -32,7 +33,7 @@ const Wishlistt: React.FC = () => {
 		)
 	}
 	const total = wishlists.reduce((acc, cart) => acc + cart.product.price * cart.quantity, 0)
-	
+	const whislistsId = wishlists.map((wishlist: WishlistTypeWithProductextendImage) => wishlist.id)
 	return (
 		<div>
             {wishlists.map((wishlist: WishlistTypeWithProductextendImage) => (
@@ -68,9 +69,8 @@ const Wishlistt: React.FC = () => {
 							</div>
 							)}
 						</div>
-						<div className="ml-4 flex-row">
-						<WishlistButton id={wishlist.id} />
-							
+						<div className="flex-row sm:w-1 md:w-2/2 lg:w-3/3">
+							<WishlistButton id={wishlist.id} />	
 						</div>
 					</div>
 				</div>
@@ -80,25 +80,42 @@ const Wishlistt: React.FC = () => {
 				<div className="py-5" />
                 </li>
                 ))}
-			<WishlistCalculation total={total} />
+			<WishlistCalculation total={total} id={whislistsId} />
 		</div>
 	)
 }
 
-const WishlistButton: React.FC<number> = ( id :number ) => {
+interface WishlistButtonProps {
+    id: number
+}
+
+const WishlistButton: React.FC<WishlistButtonProps> = ({ id }) => {
 
 	// I want to add Wishlist item to  Cart
 	// using  addFromWishlistToCartApi
 	// and mutating the list above 
-	
+  	const queryClient = useQueryClient()
+	const { mutate: updateFromWishlistToCart } = useMutation<
+	any, Error >({
+		mutationKey: ['wishlists', id], 
+		mutationFn: async () => {
+			await addFromWishlistToCartApi(id)
+		},
+		onSuccess: () => {
+		queryClient.invalidateQueries({ queryKey: ['wishlists'] })
+		},
+	})
+
 	console.log("Button ID", id)
 	return (
-		<>
+		<div key={id} id={id.toString()}>
 		<button 
-			className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+			className="bg-red-500 text-white px-0.75 py-0.25 rounded hover:bg-red-600"
+			onClick={() => updateFromWishlistToCart()}
+		>
 			Add to Cart
 		</button>
-		</>
+		</div>
 	)
 }
 

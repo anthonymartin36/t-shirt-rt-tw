@@ -1,28 +1,50 @@
 import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addToWishlistApi } from '../../apis/wishlist'
+import WishlistItem from '../Wishlist/WishlistItem'
+import { useQuery } from '@tanstack/react-query'
+import { addToWishlistApi, getWishlistByProductIdApi } from '../../apis/wishlist'
+//WishlistTypeWithProductID
 
 interface WishlistButtonProps {
     productId: number;
 }
 
-
-const WishlistButton: React.FC<WishlistButtonProps> = ({ productId }) => {
+const WishlistButton: React.FC<WishlistButtonProps> = ( {productId} ) => {
     const queryClient = useQueryClient()
-    const NewWishlist= { product_id: productId, customer_id: 1, quantity: 1 }
-    const mutate = useMutation({
-        mutationFn: async () => {
-            await addToWishlistApi(NewWishlist)
+    const NewWishlist = { product_id: productId, customer_id: 1, quantity: 1 }
+    const [wishlistMember, setWishlistMember] = React.useState<{ wishlistid: number, quantity: number } | null>(null)
+    const { 
+        data: wishlist,
+    } = useQuery<{ wishlistid: number; quantity: number }>({
+        queryKey: ['wishlists', productId],
+        queryFn: async () => {
+            const member = await getWishlistByProductIdApi(productId)
+            setWishlistMember({ wishlistid: member.wishlistid, quantity: member.quantity })
+            return member
+        },
+    })
+
+    const { mutate: addToWishlist } = useMutation({
+        mutationFn: async (wishlistItem: any) => {
+            await addToWishlistApi(wishlistItem)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['wishlists'] })
         },
-        onError: (error) => {
-            console.error('Error adding to wishlist:', error)
-        }
     })
+
     const handleAddToCart = () => {
-        mutate.mutate()
+        addToWishlist(NewWishlist)
+    }
+
+
+    if (wishlist && wishlistMember && wishlistMember.wishlistid != 0) {
+        //console.log('wishlistMember : ', wishlistMember?.wishlistid, 'quantity : ', wishlistMember?.quantity)
+        return (
+            <div className="">
+            <WishlistItem id={wishlist?.wishlistid} quantity={wishlist?.quantity} />
+            </div>
+        )
     }
     return (
         <button 
@@ -34,4 +56,4 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({ productId }) => {
     )
 }
 
-export default WishlistButton
+export default WishlistButton    

@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
+import AddAllToCart from './AddAllToCart'
 //import { CartTypeWithProductextendImage } from './types'
 interface WishlistCalculationProps {
     total: number;
+    id: number[];
 }
 
-const WishlistCalculation: React.FC<WishlistCalculationProps>= ({ total }) => {
+const WishlistCalculation: React.FC<WishlistCalculationProps>= ({ total, id }) => {
     let total2: number= Number(total)
     total2 = Number(total2.toFixed(2))
     let gst: number = total2 * 0.15
@@ -38,7 +40,7 @@ const WishlistCalculation: React.FC<WishlistCalculationProps>= ({ total }) => {
         <div className="py-2" />
         <div className="flex justify-between text-base font-medium text-gray-900">
             <div className="text-left font-medium text-indigo-600 hover:text-indigo-500"> <Link to={`/`}>Continue Shopping</Link> </div>
-            <div className="text-right font-medium text-indigo-600 hover:text-indigo-500"> <Link to={`/cart`}>Add All to Cart</Link> </div> 
+            <div className="text-right font-medium text-indigo-600 hover:text-indigo-500"> <AddAllToCart id={id}/> </div> 
         </div>
         </div>
 	)

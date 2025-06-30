@@ -12,6 +12,10 @@ type Quantity2Type = {
     quantity: number
   }
 }
+export type WishlistTypeWithProductID = {
+  wishlistid: number
+  quantity: number
+}
 
 // GET all carts (/api/v1/wishlists)
 export async function getAllWishlistApi(): Promise<[WishlistTypeWithProductextendImage]> {
@@ -80,4 +84,14 @@ export async function updateWishlistQuantityApi(id: number, quantity: any): Prom
   }
 }
 
-
+//Get Wishlist by product ID (/api/v1/wishlists/product/:productId) to see if product already exists in the wishlist
+export async function getWishlistByProductIdApi(productId: number): Promise<WishlistTypeWithProductID> {
+  try {
+     const response = await request.get(`${rootUrl}/wishlists/product/${productId}`)
+     console.log("Calling API URL:", response.body)
+     //http://localhost:3000/api/v1/wishlists/product/7
+     return response.body
+   } catch (error) {
+     throw console.error('Error fetching Wishlist by product ID', error)
+   }
+ }
