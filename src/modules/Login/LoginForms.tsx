@@ -9,7 +9,7 @@ const LoginForms: React.FC = () => {
                 <Input label="Password" name="password" />
                 <a href="#" className="flex justify-end text-sm leading-6 font-semibold text-red-600 hover:text-red-500 ">
                     Forgot Password</a>
-                <Button type="submit" text="Sign In" />
+                <Button type="submit" text="Sign In" handleClick={() => console.log("Login Form")} />
             </form>
 		</div>
 	)
