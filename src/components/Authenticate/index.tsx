@@ -1,10 +1,19 @@
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
+import React from 'react'
 //import { useNavigate } from 'react-router-dom'
 import { Menu } from '@headlessui/react' 
 
+type User = {
+  nickname?: string
+  name?: string
+  picture?: string
+  email?: string
+}
+
 export default function Authenticate() {
+  const [user, setUser] = React.useState<null | User>(null);
   const appColour = 'red'
   let colors =  {"normal": 100, "hover" : "400"} // darkMode ? {} : { "normal": 700, "hover" : "900" } 
 
@@ -12,6 +21,47 @@ export default function Authenticate() {
   const userLogged = useAuth0().user
   //const navigate = useNavigate()
   // TODO: replace placeholder user object with the one from auth0
+
+  //console.log("User from auth0: ", userLogged)
+  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  // React.useEffect(() => {
+  // }, [userLogged]); // Only run when userLogged changes
+
+  React.useEffect(() => {
+    if (userLogged) {
+      setUser(userLogged);
+    }
+    if (canvasRef.current && userLogged?.picture) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      if (userLogged?.picture) {
+        img.src = userLogged.picture;
+      } else {
+        console.error("No picture URL available for the user.");
+      }
+      img.src = userLogged.picture;
+      console.log("Image typeof", typeof img.src, img.src)  
+  
+      img.onload = () => {
+        img.referrerPolicy="no-referrer"
+        ctx?.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw the image
+        console.log("User from auth0: ", userLogged?.picture)
+      };
+  
+      img.onerror = () => {
+        console.error("Failed to load image:", userLogged.picture);
+        if (ctx) {
+          ctx.fillStyle = '#ccc'; // Placeholder color
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#000';
+          ctx.font = '12px Arial';
+          ctx.fillText('No Image', 5, 15); // Placeholder text
+        }
+      };
+    }
+  }, [userLogged?.picture]);
 
   const handleSignOut = () => {
     log.logout()
@@ -28,10 +78,16 @@ export default function Authenticate() {
                 <Menu as="div" className="relative inline-block text-left">
                   <Menu.Button className={`text-gray-${colors.normal} hover:text-gray-${colors.hover} relative`}>
                     <div className="">
-                      <img src={userLogged?.picture} alt={userLogged?.nickname}
-                        height={25}
-                        width={25}
-                        className="rounded-full aspect-square object-cover" />
+                      {user ? (
+                        <canvas
+                          ref={canvasRef}
+                          width={25}
+                          height={25}
+                          className="rounded-full"
+                        />
+                      ) : (
+                        <div className="h-6 w-6 rounded-full bg-gray-200 animate-pulse"></div> // Placeholder while loading
+                      )}
                     </div>
                   </Menu.Button>
                   <Menu.Items

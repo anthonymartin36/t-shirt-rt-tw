@@ -14,8 +14,8 @@ const Input: React.FC<InputProps> = ({name, label}) => {
                 
                 {label}
                 <input 
-                    type="email"  
-                    id='email' 
+                    type={name}
+                    id={name} 
                     required
                     className="mt-2 block w-full rounded-md border-0 p-1.5 shadow-sm ring-1 ring-inset ring-gray-500
                     placeholder:text-gray-400" 

@@ -2,7 +2,7 @@ import PageLayout from '../../components/PageLayout'
 import LogoSection from '../../modules/Login/LogoSection'
 import LoginForms from '../../modules/Login/LoginForms' 
 import ContinueWithGoogle from '../../modules/Login/ContinueWithGoogle'
-import ContinueWithFacebook from '../../modules/Login/ContinueWithFacebook'
+//import ContinueWithFacebook from '../../modules/Login/ContinueWithFacebook'
 import LoginBG from '../../assets/inside-tshirt-store.jpg'
 
 const Login: React.FC = () => {
@@ -16,7 +16,7 @@ const Login: React.FC = () => {
 				<LogoSection />
 				<LoginForms />
 				<ContinueWithGoogle />
-				<ContinueWithFacebook />
+				{/* <ContinueWithFacebook /> */}
 		  		</div>
 			</div>
 			{/* Right hand column*/}
